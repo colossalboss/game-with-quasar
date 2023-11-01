@@ -12,11 +12,11 @@
         <p>
           Moves {{ moves }} <br>
           Time {{ duration }} seconds <br>
-        <ul class="rate ratings" >
+        <ul class="rate ratings">
           <li v-for="i in stars"><i class="fa fa-star"></i></li>
         </ul>
         </p>
-        <button id="again" @click="playAgain">{{ games > 0 ? 'Restart' : 'Play'}}</button>
+        <button id="again" @click="playAgain">{{ games > 0 ? 'Restart' : 'Play' }}</button>
       </div>
     </section>
   </q-page>
@@ -76,6 +76,20 @@ export default {
       this.openCards = [];
     },
 
+    shuffle(array) {
+      var currentIndex = array.length, temporaryValue, randomIndex;
+
+      while (currentIndex !== 0) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+      }
+
+      return array;
+    },
+
     compareCards(currentCard, previousCard) {
       console.log(currentCard.innerHTML === previousCard.innerHTML, "match?");
       if (currentCard.innerHTML === previousCard.innerHTML) {
@@ -133,6 +147,7 @@ export default {
       // stop timer
       this.stop();
       // create new cards
+      this.icons = this.shuffle(this.icons);
       this.gameStarted = true;
       this.start();
 
@@ -166,7 +181,6 @@ body {
 
 body {
   background: #ffffff url('../assets/geometry2.png');
-  /* Background pattern from Subtle Patterns */
   font-family: 'Coda', cursive;
 }
 
