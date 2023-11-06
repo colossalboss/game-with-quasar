@@ -29,7 +29,7 @@ export default {
       openCards: [],
       matchedCards: [],
       duration: 0,
-      timerInterval: 0,
+      timerInterval: null,
       moves: 0,
       games: 0,
       stars: 5,
@@ -127,7 +127,9 @@ export default {
 
     stop() {
       clearInterval(this.timerInterval);
+      console.log(this.timerInterval, "beofere")
       this.timerInterval = null;
+      console.log(this.timerInterval, "after")
       this.gameStarted = false;
     },
 
@@ -138,7 +140,7 @@ export default {
           this.gameStarted = false;
         }, 500);
 
-        stop();
+        this.stop();
       }
     },
 
