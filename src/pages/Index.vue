@@ -1,6 +1,14 @@
 <template>
-  <q-page class="flex flex-center">
-    <section style="margin-top: 20px;" v-if="gameStarted">
+  <q-page class="flex flex-center flex-column">
+    <section v-if="gameStarted" style="margin-top: 20px;">
+      <section v-if="gameStarted" class="widgets flex justify-end">
+        <div class="restart" style="margin: 0 20px">
+          <i class="fa fa-repeat" @click="playAgain" style="font-size: 24px;cursor: pointer;"></i>
+        </div>
+        <div class="t-seconds">
+          {{ duration }} seconds
+        </div>
+      </section>
       <ul class="deck">
         <li class="card" @click="onCardClick($event)" v-for="icon in icons"><i :class="icon"></i></li>
       </ul>
@@ -91,7 +99,6 @@ export default {
     },
 
     compareCards(currentCard, previousCard) {
-      console.log(currentCard.innerHTML === previousCard.innerHTML, "match?");
       if (currentCard.innerHTML === previousCard.innerHTML) {
         currentCard.classList.add('match');
         previousCard.classList.add('match');
@@ -127,9 +134,7 @@ export default {
 
     stop() {
       clearInterval(this.timerInterval);
-      console.log(this.timerInterval, "beofere")
       this.timerInterval = null;
-      console.log(this.timerInterval, "after")
       this.gameStarted = false;
     },
 
@@ -145,6 +150,7 @@ export default {
     },
 
     playAgain() {
+      this.flushOpenCards()
       this.gameStarted = false;
       // stop timer
       this.stop();
@@ -308,5 +314,16 @@ h1 {
   display: flex;
   padding: 0;
   justify-content: center;
+}
+
+@media (max-width: 500px) {
+  .deck {
+    width: 100%;
+  }
+
+  .card {
+    width: 80px !important;
+    height: 80px !important;
+  }
 }
 </style>
