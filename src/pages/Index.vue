@@ -6,6 +6,9 @@
           <i class="fa fa-repeat" @click="playAgain" style="font-size: 24px;cursor: pointer;"></i>
         </div>
         <div class="t-seconds">
+          {{ moves }} moves
+        </div>
+        <div class="t-seconds" style="margin: 0 20px">
           {{ duration }} seconds
         </div>
       </section>
@@ -141,11 +144,24 @@ export default {
     gameOver() {
       if (this.matchedCards.length === this.icons.length) {
         this.games += 1;
+        this.calculateStarsFromMovesAndTime();
         setTimeout(() => {
           this.gameStarted = false;
         }, 500);
 
         this.stop();
+      }
+    },
+
+    calculateStarsFromMovesAndTime() {
+      if (this.duration < 30 && this.moves < 20) {
+        this.stars = 4;
+      } else if (this.duration < 30 && moves > 20) {
+        this.stars = 3;
+      } else if (this.moves < 30 && this.duration > 60) {
+        this.stars = 2;
+      } else {
+        this.stars = 1;
       }
     },
 
