@@ -19,14 +19,16 @@
 
     <section v-if="!gameStarted">
       <div id="over" v-if="won">
-        <p>Congrats! You won</p>
-        <p>
-          Moves {{ moves }} <br>
-          Time {{ duration }} seconds <br>
-        <ul class="rate ratings">
-          <li v-for="i in stars"><i class="fa fa-star"></i></li>
-        </ul>
-        </p>
+        <div v-if="moves > 0 || stars > 0 || duration > 0">
+          <p>Congrats! You won</p>
+          <p>
+            Moves {{ moves }} <br>
+            Time {{ duration }} seconds <br>
+          <ul class="rate ratings">
+            <li v-for="i in stars"><i class="fa fa-star"></i></li>
+          </ul>
+          </p>
+        </div>
         <button id="again" @click="playAgain">{{ games > 0 ? 'Restart' : 'Play' }}</button>
       </div>
     </section>
@@ -43,7 +45,7 @@ export default {
       timerInterval: null,
       moves: 0,
       games: 0,
-      stars: 5,
+      stars: 0,
 
       gameStarted: false,
       won: true,
