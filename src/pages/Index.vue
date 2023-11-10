@@ -334,6 +334,16 @@ h1 {
   justify-content: center;
 }
 
+#again {
+    border-radius: 8px;
+    border: none;
+    min-width: 120px;
+    font-weight: bold;
+    cursor: pointer;
+    letter-spacing: 2px;
+    box-shadow: 1px 2px 2px 2px #706a6a;
+}
+
 @media (max-width: 500px) {
   .deck {
     width: 100%;
